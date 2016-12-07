@@ -2,7 +2,9 @@
     color: #7188a2
 }
 
-
+.cha-container{
+    width: 80%;
+}
 
 .post-intro, .post-information{
     margin-top: 2rem;
