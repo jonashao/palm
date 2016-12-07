@@ -1,0 +1,44 @@
+.secondaryText {
+    color: #7188a2
+}
+
+
+
+.post-intro, .post-information{
+    margin-top: 2rem;
+}
+
+.checkbox-list {
+    margin-top: 1.5rem;
+}
+
+.cha-item {
+    padding: .5rem;
+}
+
+
+.headroom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    zIndex: 1;
+}
+
+.headroom--unfixed {
+    position: relative;
+    transform: translateY(0);
+}
+
+.headroom--scrolled {
+    transition: transform 200ms ease-in-out;
+}
+
+.headroom--unpinned {
+    position: fixed;
+    transform: translateY(-100%);
+}
+
+.headroom--pinned {
+    position: fixed;
+    transform: translateY(0%);
+}
