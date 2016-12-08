@@ -1,20 +1,14 @@
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
 import Headroom from 'react-headroom';
 import NavMenu from './Nav';
 import {
-    Segment,
     Header,
-    Input,
-    Image,
-    Search,
-    Label,
     Icon,
     Container,
     Card,
     Grid,
-    List,
-    Button
+    Search,
+    List
 } from 'semantic-ui-react'
 
 import './css/Search.css';

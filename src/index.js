@@ -5,6 +5,7 @@ import App from './App';
 import Post from './Post';
 import Square from './Square';
 import SearchPage from './Search';
+import Profile from './Profile';
 import './css/index.css';
 
 ReactDOM.render(
@@ -13,5 +14,5 @@ ReactDOM.render(
   <Route path="/square" component={Square}></Route>
   <Route path="/search" component={SearchPage}></Route>
   <Route path="/:postId" component={Post}></Route>
-
+  <Route path="/user/:userId" component={Profile}></Route>
 </Router>, document.getElementById('root'));
