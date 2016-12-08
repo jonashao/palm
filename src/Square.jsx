@@ -7,22 +7,21 @@ import {
     Header,
     Input,
     Image,
-    Search
+    Search,
+    Label,
+    Icon,
+    Container,
+    Card
 } from 'semantic-ui-react'
 
+import './Square.css';
 import logo from './assets/images/logo.png';
 import avatar from './assets/images/avatar.jpg';
 
-// import { Header, Image } from 'semantic-ui-react' const HeaderExampleImage =
-// () => (   <Header as='h2'>     <Image shape='circular'
-// src='http://semantic-ui.com/images/avatar2/large/patrick.png' />     {'
-// '}Patrick   </Header> )
-
-class MenuExampleInvertedSecondary extends Component {
-
+class NavMenu extends Component {
     render() {
         return (
-            <Menu size="huge" pointing secondary>
+            <Menu size="huge" borderless>
                 <Menu.Item header name='home'>
                     <Image ui size="mini" src={logo}/>
                     <span>Palm</span>
@@ -42,14 +41,82 @@ class MenuExampleInvertedSecondary extends Component {
     }
 }
 
+class Tags extends Component {
+    render() {
+        return (
+            <Label.Group color='teal' className="tags">
+                <Label as='a'>
+                    Fun
+                    <Icon name='close'/>
+                </Label>
+                <Label as='a'>
+                    Happy
+                    <Label.Detail>22</Label.Detail>
+                </Label>
+                <Label as='a'>Smart</Label>
+                <Label as='a'>Insane</Label>
+                <Label as='a'>Exciting</Label>
+            </Label.Group>
+        );
+    }
+}
+
+class PostCard extends Component {
+    render() {
+        return (
+            <Card fluid href={this.props.href}>
+                <Card.Content header={this.props.title}/>
+                <Card.Content description={this.props.description}/>
+                <Card.Content extra>
+
+                    <Icon name='user'/>
+                    4 Friends
+                </Card.Content>
+            </Card>
+        );
+    }
+}
+
+const items = [
+    {
+        header: 'Project Report - April',
+        description: 'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+        meta: 'ROI: 30%',
+        href: "#/how-are-you",
+        fluid: true,
+        extra: <div>
+                <Icon name='user'/>
+                4 Friends</div>
+    }, {
+        header: 'Project Report - May',
+        description: 'Bring to the table win-win survival strategies to ensure proactive domination.',
+        href: "#/how-are-you",
+        fluid: true,
+        meta: 'ROI: 34%'
+    }, {
+        header: 'Project Report - June',
+        description: 'Capitalise on low hanging fruit to identify a ballpark value added activity to b' +
+                'eta test.',
+        href: "#/how-are-you",
+        fluid: true,
+        meta: 'ROI: 27%'
+    }
+]
+
+const PostList = () => (<Card.Group items={items}/>)
+
 class Square extends Component {
     render() {
         return (
             <div className="Square">
                 <Headroom>
-                    <MenuExampleInvertedSecondary/>
+                    <NavMenu/>
                 </Headroom>
 
+                <Container>
+                    <Tags/>
+                    <PostList/>
+                </Container>
                 <div style={{
                     'height': '1200px'
                 }}/>

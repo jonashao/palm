@@ -9,6 +9,6 @@ import './index.css';
 ReactDOM.render(
   <Router history={hashHistory}>
   <Route path="/" component={App}></Route>
-  <Route path="/sqaure" component={Square}></Route>
+  <Route path="/square" component={Square}></Route>
   <Route path="/:postId" component={Post}></Route>
 </Router>, document.getElementById('root'));

@@ -1,7 +1,17 @@
 import React, {Component} from 'react';
 import './Post.css';
 import 'semantic-ui-css/semantic.min.css';
-import {Sidebar, Menu, Icon, Container, Checkbox} from 'semantic-ui-react'
+import {
+    Sidebar,
+    Menu,
+    Icon,
+    Container,
+    Checkbox,
+    Image,
+    Link
+} from 'semantic-ui-react'
+
+import logo from './assets/images/logo.png';
 
 class CheckItem extends Component {
     render() {
@@ -89,10 +99,12 @@ class Post extends Component {
                         visible={visible}
                         borderless
                         size='huge'>
-                        <Menu.Item name='home'>
-                            <Icon name='home'/>
-                            Home
+
+                        <Menu.Item header name='home' link href='#/square' target='_blank'>
+                            <Image ui size="mini" src={logo}/>
+                            <span>Palm</span>
                         </Menu.Item>
+
                         <Menu.Item name='gamepad'>
                             <Icon name='gamepad'/>
                             Games
