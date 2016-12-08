@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
 import Headroom from 'react-headroom';
 import {
     Menu,
-    Segment,
-    Header,
-    Input,
     Image,
     Search,
     Label,
@@ -14,7 +10,7 @@ import {
     Card
 } from 'semantic-ui-react'
 
-import './Square.css';
+import './css/Square.css';
 import logo from './assets/images/logo.png';
 import avatar from './assets/images/avatar.jpg';
 
@@ -57,22 +53,6 @@ class Tags extends Component {
                 <Label as='a'>Insane</Label>
                 <Label as='a'>Exciting</Label>
             </Label.Group>
-        );
-    }
-}
-
-class PostCard extends Component {
-    render() {
-        return (
-            <Card fluid href={this.props.href}>
-                <Card.Content header={this.props.title}/>
-                <Card.Content description={this.props.description}/>
-                <Card.Content extra>
-
-                    <Icon name='user'/>
-                    4 Friends
-                </Card.Content>
-            </Card>
         );
     }
 }

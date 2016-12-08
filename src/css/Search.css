@@ -1,0 +1,12 @@
+.search-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.search-box{
+    margin-top: 1rem;
+}
+
+.search-container .ui.input{
+    width:100%
+}
