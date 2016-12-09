@@ -29,12 +29,15 @@ This plugins help me develop more effective during the practice.
 ### Theme
 * [seti-icons](https://marketplace.visualstudio.com/items?itemName=qinjia.seti-icons)
 * [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
+
 ## Snippets
 * [html css class completion](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion)
 * [reactjs code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets)
+
 ## Beautify
 * [beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
 * [react-beautify](https://marketplace.visualstudio.com/items?itemName=taichi.react-beautify)
+
 ## Others
 * [npm](https://marketplace.visualstudio.com/items?itemName=fknop.vscode-npm)
 

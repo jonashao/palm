@@ -33,6 +33,7 @@ class Content extends Component {
                         <span style={ { marginLeft: '.5rem' } }>{ this.props.date }</span>
                         <span className="section-not-to-print" style={ { marginLeft: '1rem' } }>{ this.props.like }</span>
                         <span className="section-not-to-print" style={ { marginLeft: '.5rem' } }><Icon link name='print'  onClick={ window.print }/></span>
+                        <span className="section-not-to-print" style={ { marginLeft: '.5rem' } }><Icon link name='hand lizard' /></span>
                       </div>
                     </div>
                     <div className="post-intro">
@@ -59,7 +60,7 @@ class Post extends Component {
             description: 'description',
             visible: false,
             checklist: [],
-            like: <Icon name="empty heart" />,
+            like: <Icon name="empty heart" link />,
             comment: '0',
             heart: '0'
         });
@@ -83,7 +84,8 @@ class Post extends Component {
                     description: post.get('description'),
                     checklist: post.get('checklist'),
                     comment: post.get('comment'),
-                    heart: post.get('heart')
+                    heart: post.get('heart'),
+                    like: post.get('like') ? <Icon name="heart" link /> : <Icon name="empty heart" link />
                 });
             } else {
                 console.log('404')
@@ -129,19 +131,19 @@ class Post extends Component {
                     <span>Palm</span>
                   </Menu.Item>
                   <Menu.Item name='heart' style={ { paddingRight: '.5rem' } }>
-                    <Icon size='large' name='empty heart' color='green' />
+                    <Icon link size='large' name='empty heart' color='green' />
                     <span className='secondaryText'> { this.state.heart }</span>
                   </Menu.Item>
                   <Menu.Item name='comments' style={ { paddingLeft: '.5rem' } }>
-                    <Icon size='large' name='comment outline' style={ { marginTop: '-.35rem' } } className='secondaryText' />
+                    <Icon link size='large' name='comment outline' style={ { marginTop: '-.35rem' } } className='secondaryText' />
                     <span className='secondaryText'>{ this.state.comment }</span>
                   </Menu.Item>
                   <Menu.Menu position='right'>
                     <Menu.Item name='heart' style={ { paddingRight: '.5rem' } }>
-                      <Icon size='large' name='wechat' color='green' />
+                      <Icon link size='large' name='wechat' alt='share to wechat friend' color='green' />
                     </Menu.Item>
                     <Menu.Item name='comments' style={ { paddingLeft: '.5rem' } }>
-                      <Icon size='large' name='qq' style={ { marginTop: '-.35rem' } } className='secondaryText' />
+                      <Icon link size='large' name='qq' alt='share to qq friend' style={ { marginTop: '-.35rem' } } className='secondaryText' />
                     </Menu.Item>
                   </Menu.Menu>
                 </Sidebar>
