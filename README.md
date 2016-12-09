@@ -4,7 +4,7 @@ A check list site developed with React.
 
 *This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).*
 
-
+Click to visit [demo site](http://palm.leanapp.cn/i-love-you) deployed on Leancloud.
 
 ## Aim of the project
 To learn and practice front end technologies.
@@ -12,36 +12,35 @@ To learn and practice front end technologies.
 ## Technologies
 * React
 * React Router
-* Draft Js
 * Semantic UI
 * Semantic UI React
 * Immutable
+* Draft Js
 * Redux
 
 ## Tools
 * vs code
 * npm
-* brunch
 * create-react-app(webpack)
+* leancloud-cli
+
 
 ## Vs code plugins
-This plugins help me develop more effective during the practice.
+These plugins help me develop more effective during the practice.
 ### Theme
 * [seti-icons](https://marketplace.visualstudio.com/items?itemName=qinjia.seti-icons)
 * [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
 
-## Snippets
-* [html css class completion](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion)
+### Snippets
 * [reactjs code snippets](https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets)
 
-## Beautify
+### Beautify
 * [beautify](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify)
 * [react-beautify](https://marketplace.visualstudio.com/items?itemName=taichi.react-beautify)
 
-## Others
+### Others
 * [npm](https://marketplace.visualstudio.com/items?itemName=fknop.vscode-npm)
 
----
 
 ## Credits
 Icon ![logo](src/assets/images/logo-sm.png)

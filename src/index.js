@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AV from 'leancloud-storage';
 import { Router, Route, browserHistory } from 'react-router'
 import App from './App';
 import Post from './Post';
 import Square from './Square';
 import SearchPage from './Search';
 import Profile from './Profile';
-import './css/index.css';
-import AV from 'leancloud-storage';
+import { appId, appKey } from './avconfig'
 
-const appId = 'Ba37Dom669CUYe5Gf63nYygC-gzGzoHsz';
-const appKey = 'W1PLLphokPT88VEqNm0jIVoF';
+import './css/index.css';
+
 AV.init({
   appId,
   appKey
