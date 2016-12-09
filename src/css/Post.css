@@ -1,12 +1,15 @@
 .secondaryText {
-    color: #7188a2
+    color: #7188a2;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
-.cha-container{
+.cha-container {
     width: 80%;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
-.post-intro, .post-information{
+.post-intro,
+.post-information {
     margin-top: 2rem;
 }
 
@@ -17,7 +20,6 @@
 .cha-item {
     padding: .5rem;
 }
-
 
 .headroom {
     bottom: 0;
@@ -43,4 +45,22 @@
 .headroom--pinned {
     position: fixed;
     transform: translateY(0%);
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #section-to-print,
+    #section-to-print * {
+        visibility: visible;
+    }
+    #section-to-print {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .section-not-to-print {
+        display: none;
+    }
 }
