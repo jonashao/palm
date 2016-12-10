@@ -1,4 +1,3 @@
-`use strict`;
 import React, { Component } from 'react';
 import Headroom from 'react-headroom';
 import AV from 'leancloud-storage';
@@ -9,19 +8,16 @@ import './css/Square.css';
 
 class Tags extends Component {
     render() {
+        let labels = [];
+        this.props.items.forEach((text, index) => {
+            var item = <Label key={ index } as='a' href={ '/search?q=' + text.title }>
+                         { text.title }
+                       </Label>;
+            labels.push(item);
+        });
         return (
             <Label.Group color='teal' className="tags">
-              <Label as='a'>
-                Fun
-                <Icon name='close' />
-              </Label>
-              <Label as='a'>
-                Happy
-                <Label.Detail>22</Label.Detail>
-              </Label>
-              <Label as='a'>Smart</Label>
-              <Label as='a'>Insane</Label>
-              <Label as='a'>Exciting</Label>
+              { labels }
             </Label.Group>
             );
     }
@@ -33,7 +29,8 @@ class Square extends Component {
         super(props);
         this.fetchData = this.fetchData.bind(this);
         this.state = {
-            items: []
+            items: [],
+            tags: []
         }
     }
 
@@ -45,11 +42,9 @@ class Square extends Component {
     fetchData() {
         let _this = this;
         var query = new AV.Query('Post');
-
+        query.select(['postId', 'title', 'description', 'author', 'updatedAt', 'like', 'heart']);
         query.limit(10);
-
         query.find().then(function(results) {
-            console.log(results);
             let items = [];
             for (let post of results) {
                 let postId = post.get('postId');
@@ -73,11 +68,25 @@ class Square extends Component {
                 };
                 items.push(item);
             }
-
             _this.setState({
                 items: items
             });
 
+        }, function(error) {});
+
+        query = new AV.Query('Tag');
+        query.limit(100);
+        query.select(['text']);
+        query.find().then(function(results) {
+            let items = [];
+            for (let tag of results) {
+                items.push({
+                    'title': tag.get('text')
+                });
+            }
+            _this.setState({
+                tags: items
+            });
         }, function(error) {});
     }
 
@@ -90,10 +99,10 @@ class Square extends Component {
         return (
             <div className="Square">
               <Headroom>
-                <NavMenu search/>
+                <NavMenu search source={ this.state.tags } />
               </Headroom>
               <Container>
-                <Tags/>
+                <Tags items={ this.state.tags.slice(0, 10) } />
                 <Card.Group items={ this.state.items } />
               </Container>
             </div>

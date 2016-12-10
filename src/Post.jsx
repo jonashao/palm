@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AV from 'leancloud-storage';
-import { Sidebar, Menu, Icon, Container, Checkbox, Image, Link } from 'semantic-ui-react'
+import { Sidebar, Menu, Icon, Container, Checkbox, Image } from 'semantic-ui-react'
 import { browserHistory } from 'react-router'
 
 import './css/Post.css';
@@ -72,7 +72,7 @@ class Post extends Component {
     fetchData() {
         let _this = this;
         var query = new AV.Query('Post');
-
+        query.select(['title', 'postId', 'author', 'updatedAt', 'description', 'checklist', 'comment', 'heart', 'like']);
         query.equalTo('postId', this.props.params.postId);
         query.find().then(function(results) {
             if (results.length === 1) {

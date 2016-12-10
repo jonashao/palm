@@ -4,6 +4,7 @@ import { Menu, Image, Container, Search } from 'semantic-ui-react'
 import AV from 'leancloud-storage';
 import logo from './assets/images/logo.png';
 import avatar from './assets/images/avatar.jpg';
+import { browserHistory } from 'react-router';
 
 class NavMenu extends Component {
 
@@ -17,43 +18,28 @@ class NavMenu extends Component {
     value: ''
   })
 
-  handleResultSelect = (e, result) => this.setState({
-    value: result.title
-  })
+  handleResultSelect(e, result) {
+    browserHistory.push('/search?q=' + result.title);
+  }
 
+  handleReturn(e) {
+    console.log('hi' + e);
+    browserHistory.push('/search?q=' + this.state.value);
+  }
 
   handleSearch(value) {
     setTimeout(() => {
       if (value.length < 1) return this.resetComponent()
-      var query = new AV.SearchQuery('Post');
-      let _this = this;
-      query.sortBy(new AV.SearchSortBuilder().descending('description', 'avg', 'last'));
-      query.queryString(value);
-      // query.find().then(function(results) {
-      //   console.log(results);
-      //   let _results = [];
-      //   for (let post in results) {
-      //     // let item = {
-      //     //   title: post.get('title'),
-      //     //   author: post.get('author'),
-      //     //   description: post.get('description').substring(0, 140)
-      //     // }
-      //     // console.log('item:' + item);
-      //   }
-      //   _this.setState({
-      //     isLoading: false,
-      //     results: _results
-      //   })
-      // });
+      // `i` means ignore uppercase and lower case
+      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+      const isMatch = (result) => re.test(result.title)
 
-      console.log('after query');
       this.setState({
-        isLoading: false
+        isLoading: false,
+        results: _.filter(this.props.source, isMatch),
       })
 
-    }, 2000);
-
-    console.log('end');
+    }, 500);
   }
 
   handleSearchChange = (e, value) => {
@@ -71,7 +57,7 @@ class NavMenu extends Component {
       const {isLoading, value, results} = this.state
       search = <Menu.Item>
                  <Search size="mini" loading={ isLoading } onResultSelect={ this.handleResultSelect } onSearchChange={ this.handleSearchChange } results={ results } value={ value }
-                   {...this.props}/>
+                   onChange={ this.handleReturn.bind(this) } />
                </Menu.Item>
     }
 

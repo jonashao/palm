@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NavMenu from './Nav';
-import { Container, Grid, Image, List, Icon, Menu, Segment, Header, Divider } from 'semantic-ui-react';
+import { Container, Grid, Image, List, Menu, Segment, Header, Divider } from 'semantic-ui-react';
 import avatar from './assets/images/avatar.jpg';
 
 import './css/Profile.css'
@@ -26,7 +26,7 @@ class MenuExampleSecondaryPointing extends Component {
           <Menu.Item name='friends' active={ activeItem === 'friends' } onClick={ this.handleItemClick } />
         </Menu>
         <Segment>
-          <img src='http://semantic-ui.com/images/wireframe/media-paragraph.png' />
+          <img alt='media graph' src='http://semantic-ui.com/images/wireframe/media-paragraph.png' />
         </Segment>
       </div>
     )

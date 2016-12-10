@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './css/App.css';
 import Immutable from 'immutable';
 
@@ -6,22 +6,23 @@ class InputText extends Component {
 
   constructor(props) {
     super(props);
-    this.state = ({text: this.props.text});
+    this.state = ({
+      text: this.props.text
+    });
     this.handleChange = this
       .handleChange
       .bind(this);
   }
 
   handleChange(event) {
-    this.setState({text: event.target.value})
+    console.log(event.target.value);
+    this.setState({
+      text: event.target.value
+    })
   }
 
   render() {
-    return <input
-      className={this.props.className}
-      placeholder={this.props.placeholder}
-      value={this.state.text}
-      onChange={this.handleChange}/>;
+    return <input className={ this.props.className } placeholder={ this.props.placeholder } value={ this.state.text } onChange={ this.handleChange } />;
   }
 }
 
@@ -30,13 +31,13 @@ class Introduction extends Component {
     return (
       <div className="introduction">
         <li>
-          <InputText className="h1" placeholder="Title"/>
+          <InputText className="h1" placeholder="Title" />
         </li>
         <li>
-          <InputText className="h3" placeholder="author"/>
+          <InputText className="h3" placeholder="author" />
         </li>
       </div>
-    );
+      );
   }
 }
 
@@ -77,14 +78,9 @@ class ChaItem extends Component {
   render() {
     return (
       <li>
-        <input
-          onKeyDown={this.handleKeyDown}
-          className="chaItem"
-          onChange={this.handleChange}
-          placeholder="What to do?"
-          value={this.props.text}/>
+        <input onKeyDown={ this.handleKeyDown } className="chaItem" onChange={ this.handleChange } placeholder="What to do?" value={ this.props.text } />
       </li>
-    );
+      );
   }
 }
 
@@ -109,23 +105,16 @@ class ChaList extends Component {
       .props
       .chaList
       .forEach((cha, index) => {
-        var chaItem = <ChaItem
-          ref={index}
-          key={index}
-          index={index}
-          text={cha.text}
-          needFocuse={cha.needFocuse}
-          createChaItem={this.props.createChaItem}
-          deleteChaItem={this.props.deleteChaItem}
-          handleChange={this.handleChange}/>;
+        var chaItem = <ChaItem ref={ index } key={ index } index={ index } text={ cha.text } needFocuse={ cha.needFocuse } createChaItem={ this.props.createChaItem }
+                        deleteChaItem={ this.props.deleteChaItem } handleChange={ this.handleChange } />;
         chaList.push(chaItem);
       });
 
     return (
       <ul className="chaList">
-        {chaList}
+        { chaList }
       </ul>
-    );
+      );
   }
 }
 
@@ -163,8 +152,10 @@ class App extends Component {
       chaList: this
         .state
         .chaList
-        .update(index, function (item) {
-          return ({text: event.target.value});
+        .update(index, function(item) {
+          return ({
+            text: event.target.value
+          });
         })
     });
   }
@@ -175,7 +166,9 @@ class App extends Component {
       chaList: this
         .state
         .chaList
-        .push({text: ""})
+        .push({
+          text: ""
+        })
     })
   }
 
@@ -207,18 +200,14 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <Introduction data={this.state.introduction}/>
+          <Introduction data={ this.state.introduction } />
         </div>
         <div className="App-intro">
-          <ChaList
-            chaList={this.state.chaList}
-            deleteChaItem={this.deleteChaItem}
-            createChaItem={this.createChaItem}
-            handleListChange={this.handleListChange}/>
+          <ChaList chaList={ this.state.chaList } deleteChaItem={ this.deleteChaItem } createChaItem={ this.createChaItem } handleListChange={ this.handleListChange } />
         </div>
         <FunctionalButtons/>
       </div>
-    );
+      );
   }
 }
 
