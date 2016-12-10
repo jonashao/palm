@@ -62,7 +62,8 @@ class Post extends Component {
             checklist: [],
             like: <Icon name="empty heart" link />,
             comment: '0',
-            heart: '0'
+            heart: '0',
+            scrollY: '0'
         });
         this.fetchData = this.fetchData.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
@@ -100,12 +101,14 @@ class Post extends Component {
 
 
     handleScroll(event) {
-        var delta = event.deltaY;
-        if (delta < 0) {
+        let y = window.scrollY;
+        if (y < this.state.scrollY) {
+            // scroll up
             this.toggleVisibility(true);
         } else {
             this.toggleVisibility(false);
         }
+        this.state.scrollY = y;
     }
 
     toggleVisibility = (visibility) => this.setState({
@@ -113,15 +116,12 @@ class Post extends Component {
     })
 
     componentDidMount() {
-        window.addEventListener('wheel', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll);
         this.fetchData();
-
     }
 
-
-
     componentWillUnmount() {
-        window.removeEventListener('wheel', this.handleScroll);
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     render() {
