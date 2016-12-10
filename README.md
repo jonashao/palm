@@ -4,7 +4,24 @@ A check list site developed with React.
 
 *This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).*
 
-Click to visit [demo site](http://palm.leanapp.cn/i-love-you) deployed on Leancloud.
+
+## tl;dr
+``` bash
+npm install -g create-react-app
+
+git clone https://github.com/jonashao/palm.git
+cd palm
+npm install
+npm start
+
+```
+Then open http://localhost:3000/ to see the app.
+
+*At present, you wouldn't see any data in the site, because leancloud is not [configed](https://github.com/jonashao/palm/src/avconfig.jsx), but I am preparing some fake data.*
+
+you can configure your own leancloud account,
+
+or visit the [Demo site](http://palm.leanapp.cn/square) I deployed on Leancloud.
 
 ## Aim of the project
 To learn and practice front end technologies.
@@ -16,14 +33,12 @@ To learn and practice front end technologies.
 * Semantic UI React
 * Immutable
 * Draft Js
-* Redux
 
 ## Tools
 * vs code
 * npm
 * create-react-app(webpack)
 * leancloud-cli
-
 
 ## Vs code plugins
 These plugins help me develop more effective during the practice.
