@@ -1,6 +1,8 @@
+`use strict`;
 import React, { Component } from 'react';
 import Headroom from 'react-headroom';
-import { Label, Icon, Container, Card } from 'semantic-ui-react';
+import AV from 'leancloud-storage';
+import { Label, Icon, Container, Card, Header } from 'semantic-ui-react';
 import NavMenu from './Nav';
 
 import './css/Square.css';
@@ -25,34 +27,65 @@ class Tags extends Component {
     }
 }
 
-const items = [
-    {
-        header: 'Project Report - April',
-        description: 'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-        meta: 'ROI: 30%',
-        href: "/i-love-you",
-        fluid: true,
-        extra: <div>
-                 <Icon name='user' /> 4 Friends</div>
-    }, {
-        header: 'Project Report - May',
-        description: 'Bring to the table win-win survival strategies to ensure proactive domination.',
-        href: "/i-love-you",
-        fluid: true,
-        meta: 'ROI: 34%'
-    }, {
-        header: 'Project Report - June',
-        description: 'Capitalise on low hanging fruit to identify a ballpark value added activity to b' +
-            'eta test.',
-        href: "/i-love-you",
-        fluid: true,
-        meta: 'ROI: 27%'
-    }
-]
-
-const PostList = () => (<Card.Group items={ items } />)
 
 class Square extends Component {
+    constructor(props) {
+        super(props);
+        this.fetchData = this.fetchData.bind(this);
+        this.state = {
+            items: []
+        }
+    }
+
+
+    extra(icon, label) {
+        return ( <span className='right floated' style={ { marginLeft: '2rem' } }>                                      <Icon name={ icon } /> { label } </span>)
+    }
+
+    fetchData() {
+        let _this = this;
+        var query = new AV.Query('Post');
+
+        query.limit(10);
+
+        query.find().then(function(results) {
+            console.log(results);
+            let items = [];
+            for (let post of results) {
+                let postId = post.get('postId');
+                let item = {
+                    key: postId,
+                    header: (
+                    <Header href={ '/' + post.get('postId') }>
+                      { post.get('title') }
+                    </Header>
+                    ),
+                    description: post.get('description'),
+                    fluid: true,
+                    extra: (
+                    <div>
+                      { post.get('author') }
+                      { _this.extra('clock', post.get('updatedAt').toLocaleDateString()) }
+                      { _this.extra('like', post.get('heart')) }
+                    </div>
+                    ),
+
+                };
+                items.push(item);
+            }
+
+            _this.setState({
+                items: items
+            });
+
+        }, function(error) {});
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+
     render() {
         return (
             <div className="Square">
@@ -61,11 +94,8 @@ class Square extends Component {
               </Headroom>
               <Container>
                 <Tags/>
-                <PostList/>
+                <Card.Group items={ this.state.items } />
               </Container>
-              <div style={ {
- 'height': '1200px'
- } } />
             </div>
             );
     }

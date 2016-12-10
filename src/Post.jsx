@@ -73,7 +73,7 @@ class Post extends Component {
         let _this = this;
         var query = new AV.Query('Post');
 
-        query.equalTo('postId', this.props.postId);
+        query.equalTo('postId', this.props.params.postId);
         query.find().then(function(results) {
             if (results.length === 1) {
                 let post = results[0];
@@ -87,6 +87,7 @@ class Post extends Component {
                     heart: post.get('heart'),
                     like: post.get('like') ? <Icon name="heart" link /> : <Icon name="empty heart" link />
                 });
+                document.title = _this.state.title + ' - Palm';
             } else {
                 console.log('404')
                 browserHistory.push('/404');
@@ -114,7 +115,10 @@ class Post extends Component {
     componentDidMount() {
         window.addEventListener('wheel', this.handleScroll);
         this.fetchData();
+
     }
+
+
 
     componentWillUnmount() {
         window.removeEventListener('wheel', this.handleScroll);
@@ -126,7 +130,7 @@ class Post extends Component {
             <div className="App">
               <div>
                 <Sidebar as={ Menu } animation='overlay' direction='bottom' visible={ visible } borderless size='huge'>
-                  <Menu.Item header name='home' link href='/square' target='_blank'>
+                  <Menu.Item header name='home' link href='/square'>
                     <Image ui size="mini" src={ logo } />
                     <span>Palm</span>
                   </Menu.Item>

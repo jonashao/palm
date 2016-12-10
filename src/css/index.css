@@ -1,7 +1,18 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+}
+
+body * {
+  font-family: Lato, "Hiragino Sans GB", "Microsoft YaHei",
+             "WenQuanYi Micro Hei",'Helvetica Neue',Arial,Helvetica, sans-serif; 
+            
+}
+
+.ui.cards>.card>.content>.header{
+   font-family: Lato, "Hiragino Sans GB", "Microsoft YaHei","Microsoft YaHei Light",
+             "WenQuanYi Micro Hei",'Helvetica Neue',Arial,Helvetica, sans-serif; 
+             font-weight: 500;
 }
 
 body>.ui.container {
