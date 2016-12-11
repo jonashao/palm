@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import AV from 'leancloud-storage';
-import _ from 'lodash';
 import { Sidebar, Menu, Icon, Container, Checkbox, Image } from 'semantic-ui-react'
 import { browserHistory } from 'react-router'
 
-import './css/Post.css';
+import AV from 'leancloud-storage';
+import _ from 'lodash';
+
 import 'semantic-ui-css/semantic.min.css';
-import logo from './assets/images/logo.png';
+import logo from '../assets/images/logo.png';
+import '../css/Post.css';
 
 class CheckItem extends Component {
     render() {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './css/App.css';
 import Immutable from 'immutable';
+
+import '../css/App.css';
 
 class InputText extends Component {
 

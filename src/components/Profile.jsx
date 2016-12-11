@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import NavMenu from './Nav';
 import { Container, Grid, Image, List, Menu, Segment, Header, Divider } from 'semantic-ui-react';
-import avatar from './assets/images/avatar.jpg';
+import NavMenu from './Nav';
 
-import './css/Profile.css'
+import avatar from '../assets/images/avatar.jpg';
+import '../css/Profile.css'
 
 
 class MenuExampleSecondaryPointing extends Component {

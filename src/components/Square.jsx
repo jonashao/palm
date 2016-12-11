@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Headroom from 'react-headroom';
-import AV from 'leancloud-storage';
 import { Label, Icon, Container, Card, Header } from 'semantic-ui-react';
+
+import AV from 'leancloud-storage';
+
 import NavMenu from './Nav';
 
-import './css/Square.css';
+import '../css/Square.css';
 
 class Tags extends Component {
     render() {

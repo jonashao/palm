@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
-import { Menu, Image, Container, Search } from 'semantic-ui-react'
-import AV from 'leancloud-storage';
-import logo from './assets/images/logo.png';
-import avatar from './assets/images/avatar.jpg';
 import { browserHistory } from 'react-router';
+import { Menu, Image, Container, Search } from 'semantic-ui-react'
+
+import _ from 'lodash';
+import AV from 'leancloud-storage';
+
+import logo from '../assets/images/logo.png';
+import avatar from '../assets/images/avatar.jpg';
 
 
 
 class NavMenu extends Component {
+  //  static defaultProps = {
+  //       autoPlay: false,
+  //       maxLoops: 10,
+  //   };  
+  //   static propTypes = {
+  //       autoPlay: React.PropTypes.bool.isRequired,
+  //       maxLoops: React.PropTypes.number.isRequired,
+  //       posterFrameSrc: React.PropTypes.string.isRequired,
+  //       videoSrc: React.PropTypes.string.isRequired,
+  //   }; 
 
   setup(message) {
     this.cancel();

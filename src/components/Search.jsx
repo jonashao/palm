@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Headroom from 'react-headroom';
-import NavMenu from './Nav';
 import { Header, Icon, Container, Card, Grid, Search, List } from 'semantic-ui-react'
 
-import './css/Search.css';
+import NavMenu from './Nav';
+
+import '../css/Search.css';
 
 class TagItem extends Component {
   render() {
