@@ -6,7 +6,27 @@ import logo from './assets/images/logo.png';
 import avatar from './assets/images/avatar.jpg';
 import { browserHistory } from 'react-router';
 
+
+
 class NavMenu extends Component {
+
+  setup(message) {
+    this.cancel();
+    let _this = this;
+    this.timeoutID = window.setTimeout(
+      function() {
+        _this.handleSearch(message);
+        delete this.timeoutID;
+      }, 500);
+  }
+
+  cancel() {
+    if (typeof this.timeoutID == "number") {
+      window.clearTimeout(this.timeoutID);
+      delete this.timeoutID;
+    }
+  }
+
 
   componentWillMount() {
     this.resetComponent()
@@ -22,24 +42,19 @@ class NavMenu extends Component {
     browserHistory.push('/search?q=' + result.title);
   }
 
-  handleReturn(e) {
-    console.log('hi' + e);
-    browserHistory.push('/search?q=' + this.state.value);
-  }
-
   handleSearch(value) {
-    setTimeout(() => {
-      if (value.length < 1) return this.resetComponent()
-      // `i` means ignore uppercase and lower case
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = (result) => re.test(result.title)
+    if (value.length < 1) return this.resetComponent()
+    console.log(value);
+    // `i` means ignore uppercase and lower case
+    const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+    const isMatch = (result) => re.test(result.title)
 
-      this.setState({
-        isLoading: false,
-        results: _.filter(this.props.source, isMatch),
-      })
+    this.setState({
+      isLoading: false,
+      results: _.filter(this.props.source, isMatch),
+    })
 
-    }, 500);
+    delete this.timeoutID;
   }
 
   handleSearchChange = (e, value) => {
@@ -48,7 +63,8 @@ class NavMenu extends Component {
       value
     })
 
-    this.handleSearch(value);
+    this.setup(value);
+  // this.handleSearch(value);
   }
 
   render() {
@@ -56,11 +72,10 @@ class NavMenu extends Component {
     if (this.props.search) {
       const {isLoading, value, results} = this.state
       search = <Menu.Item>
-                 <Search size="mini" loading={ isLoading } onResultSelect={ this.handleResultSelect } onSearchChange={ this.handleSearchChange } results={ results } value={ value }
-                   onChange={ this.handleReturn.bind(this) } />
+                 <Search size="mini" loading={ isLoading } onResultSelect={ this.handleResultSelect } onSearchChange={ this.handleSearchChange } onChange={ this.handleSearch.bind(this) } results={ results }
+                   value={ value } />
                </Menu.Item>
     }
-
 
     return (
       <Menu borderless size="huge">

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AV from 'leancloud-storage';
+import _ from 'lodash';
 import { Sidebar, Menu, Icon, Container, Checkbox, Image } from 'semantic-ui-react'
 import { browserHistory } from 'react-router'
 
@@ -116,12 +117,15 @@ class Post extends Component {
     })
 
     componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
+        this.debounce = _.debounce(this.handleScroll, 500, {
+            'leading': true,
+        })
+        window.addEventListener('scroll', this.debounce);
         this.fetchData();
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('scroll', this.debounce);
     }
 
     render() {
