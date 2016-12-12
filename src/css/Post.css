@@ -11,10 +11,12 @@
     width: 80%;
     font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
+
 .post-intro,
 .post-information {
     margin-top: 2rem;
 }
+
 
 .checkbox-list {
     margin-top: 1.5rem;
@@ -24,46 +26,22 @@
     padding: .5rem;
 }
 
-.headroom {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    zIndex: 1;
-}
 
-.headroom--unfixed {
-    position: relative;
-    transform: translateY(0);
-}
-
-.headroom--scrolled {
-    transition: transform 200ms ease-in-out;
-}
-
-.headroom--unpinned {
-    position: fixed;
-    transform: translateY(-100%);
-}
-
-.headroom--pinned {
-    position: fixed;
-    transform: translateY(0%);
-}
 
 @media print {
     body * {
         visibility: hidden;
     }
-    #section-to-print,
-    #section-to-print * {
+    #print,
+    #print * {
         visibility: visible;
     }
-    #section-to-print {
+    #print {
         position: absolute;
         left: 0;
         top: 0;
     }
-    .section-not-to-print {
+    .printExcept {
         display: none;
     }
 }

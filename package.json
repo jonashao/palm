@@ -9,11 +9,13 @@
     "immutable": "^3.8.1",
     "leancloud-storage": "^1.5.3",
     "lodash": "^4.17.2",
+    "radium": "^0.18.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-headroom": "^2.1.3",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
+    "redux": "^3.6.0",
     "semantic-ui-css": "^2.2.4",
     "semantic-ui-react": "^0.62.0"
   },

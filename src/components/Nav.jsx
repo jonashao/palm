@@ -5,22 +5,23 @@ import { Menu, Image, Container, Search } from 'semantic-ui-react'
 import _ from 'lodash';
 import AV from 'leancloud-storage';
 
+import log from '../utils/LogUtil';
+
 import logo from '../assets/images/logo.png';
 import avatar from '../assets/images/avatar.jpg';
 
 
-
 class NavMenu extends Component {
-  //  static defaultProps = {
-  //       autoPlay: false,
-  //       maxLoops: 10,
-  //   };  
-  //   static propTypes = {
-  //       autoPlay: React.PropTypes.bool.isRequired,
-  //       maxLoops: React.PropTypes.number.isRequired,
-  //       posterFrameSrc: React.PropTypes.string.isRequired,
-  //       videoSrc: React.PropTypes.string.isRequired,
-  //   }; 
+
+  static defaultProps = {
+    search: false,
+    source: [],
+  };
+
+  static propTypes = {
+    search: React.PropTypes.bool,
+    source: React.PropTypes.array
+  };
 
   setup(message) {
     this.cancel();
@@ -39,7 +40,6 @@ class NavMenu extends Component {
     }
   }
 
-
   componentWillMount() {
     this.resetComponent()
   }
@@ -56,7 +56,7 @@ class NavMenu extends Component {
 
   handleSearch(value) {
     if (value.length < 1) return this.resetComponent()
-    console.log(value);
+    log(value);
     // `i` means ignore uppercase and lower case
     const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
     const isMatch = (result) => re.test(result.title)
@@ -65,7 +65,6 @@ class NavMenu extends Component {
       isLoading: false,
       results: _.filter(this.props.source, isMatch),
     })
-
     delete this.timeoutID;
   }
 
@@ -76,7 +75,6 @@ class NavMenu extends Component {
     })
 
     this.setup(value);
-  // this.handleSearch(value);
   }
 
   render() {
