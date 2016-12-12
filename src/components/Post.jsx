@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { Sidebar, Menu, Icon, Container, Checkbox, Image } from 'semantic-ui-react'
+import React, { Component, PropTypes } from 'react';
+import { Sidebar, Icon, Container, Checkbox, Image } from 'semantic-ui-react';
 import { browserHistory } from 'react-router'
+
+import PostHeader from './Post.Header';
+import PostMenu from './Post.Menu';
+import PostContent from './Post.Content';
 
 import AV from 'leancloud-storage';
 import _ from 'lodash';
 
 import 'semantic-ui-css/semantic.min.css';
-import logo from '../assets/images/logo.png';
 import '../css/Post.css';
 
 class CheckItem extends Component {
@@ -18,57 +21,55 @@ class CheckItem extends Component {
     }
 }
 
+
 class Content extends Component {
+    static defaultProps = {
+        like: false
+    }
+
+    static propsType = {
+        title: PropTypes.string.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        like: PropTypes.bool,
+        description: PropTypes.string,
+        checklist: PropTypes.array.isRequired
+    }
 
     render() {
-        var _checklist = [];
-        this.props.checklist.forEach((cha, index) => {
-            var chaItem = <CheckItem key={ index } id={ index } label={ cha.header } />;
-            _checklist.push(chaItem);
+        const {description, checklist} = this.props;
+
+        let cl = checklist.map((cha, index) => {
+            return <CheckItem key={ index } id={ index } label={ cha.header } />;
         });
-        return (<Container id='section-to-print'>
-                  <div className="cha-container">
-                    <div className="post-information">
-                      <h1>{ this.props.title }</h1>
-                      <div className="secondaryText">
-                        <span style={ { marginRight: '.5rem' } }>{ this.props.author }</span> ·
-                        <span style={ { marginLeft: '.5rem' } }>{ this.props.date }</span>
-                        <span className="section-not-to-print" style={ { marginLeft: '1rem' } }>{ this.props.like }</span>
-                        <span className="section-not-to-print" style={ { marginLeft: '.5rem' } }><Icon link name='print'  onClick={ window.print }/></span>
-                        <span className="section-not-to-print" style={ { marginLeft: '.5rem' } }><Icon link name='hand lizard' /></span>
-                      </div>
-                    </div>
-                    <div className="post-intro">
-                      <p>
-                        { this.props.description }
-                      </p>
-                    </div>
-                    <div className="checkbox-list">
-                      { _checklist }
-                    </div>
+
+        return (<Container id='print'>
+                  <PostHeader {...this.props}/>
+                  <div className="post-intro">
+                    <p value={ description } />
+                  </div>
+                  <div className="checkbox-list">
+                    { cl }
                   </div>
                 </Container>);
     }
 }
 
 class Post extends Component {
-
     constructor(props) {
         super(props);
-        this.state = ({
+        this.state = {
             title: "title",
             author: "author",
             date: "date",
             description: 'description',
             visible: false,
             checklist: [],
-            like: <Icon name="empty heart" link />,
+            like: false,
             comment: '0',
             heart: '0',
             scrollY: '0'
-        });
-        this.fetchData = this.fetchData.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
+        }
     }
 
 
@@ -88,11 +89,10 @@ class Post extends Component {
                     checklist: post.get('checklist'),
                     comment: post.get('comment'),
                     heart: post.get('heart'),
-                    like: post.get('like') ? <Icon name="heart" link /> : <Icon name="empty heart" link />
+                    like: post.get('like')
                 });
                 document.title = _this.state.title + ' - Palm';
             } else {
-                console.log('404')
                 browserHistory.push('/404');
             }
         }, function(error) {
@@ -102,7 +102,7 @@ class Post extends Component {
 
 
 
-    handleScroll(event) {
+    handleScroll = event => {
         let y = window.scrollY;
         if (y < this.state.scrollY) {
             // scroll up
@@ -118,9 +118,9 @@ class Post extends Component {
     })
 
     componentDidMount() {
-        this.debounce = _.debounce(this.handleScroll, 500, {
+        this.debounce = _.debounce(this.handleScroll, 100, {
             'leading': true,
-        })
+        });
         window.addEventListener('scroll', this.debounce);
         this.fetchData();
     }
@@ -130,39 +130,18 @@ class Post extends Component {
     }
 
     render() {
-        const {visible} = this.state;
+        const {visible, heart, comment} = this.state;
+
         return (
             <div className="App">
               <div>
-                <Sidebar as={ Menu } animation='overlay' direction='bottom' visible={ visible } borderless size='huge'>
-                  <Menu.Item header name='home' link href='/square'>
-                    <Image ui size="mini" src={ logo } />
-                    <span>Palm</span>
-                  </Menu.Item>
-                  <Menu.Item name='heart' style={ { paddingRight: '.5rem' } }>
-                    <Icon link size='large' name='empty heart' color='green' />
-                    <span className='secondaryText'> { this.state.heart }</span>
-                  </Menu.Item>
-                  <Menu.Item name='comments' style={ { paddingLeft: '.5rem' } }>
-                    <Icon link size='large' name='comment outline' style={ { marginTop: '-.35rem' } } className='secondaryText' />
-                    <span className='secondaryText'>{ this.state.comment }</span>
-                  </Menu.Item>
-                  <Menu.Menu position='right'>
-                    <Menu.Item name='heart' style={ { paddingRight: '.5rem' } }>
-                      <Icon link size='large' name='wechat' alt='share to wechat friend' color='green' />
-                    </Menu.Item>
-                    <Menu.Item name='comments' style={ { paddingLeft: '.5rem' } }>
-                      <Icon link size='large' name='qq' alt='share to qq friend' style={ { marginTop: '-.35rem' } } className='secondaryText' />
-                    </Menu.Item>
-                  </Menu.Menu>
-                </Sidebar>
+                <PostMenu visible={ visible } heart={ heart } comment={ comment } />
                 <Sidebar.Pusher>
                   <Content title={ this.state.title } author={ this.state.author } date={ this.state.date } like={ this.state.like } description={ this.state.description } checklist={ this.state.checklist }
                   />
                 </Sidebar.Pusher>
               </div>
             </div>
-
             );
     }
 }
