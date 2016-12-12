@@ -8,7 +8,7 @@ import '../css/Profile.css'
 
 class MenuExampleSecondaryPointing extends Component {
   state = {
-    activeItem: 'home'
+    activeItem: '主页'
   }
 
   handleItemClick = (e, {name}) => this.setState({
@@ -21,9 +21,9 @@ class MenuExampleSecondaryPointing extends Component {
     return (
       <div>
         <Menu pointing secondary>
-          <Menu.Item name='home' active={ activeItem === 'home' } onClick={ this.handleItemClick } />
-          <Menu.Item name='messages' active={ activeItem === 'messages' } onClick={ this.handleItemClick } />
-          <Menu.Item name='friends' active={ activeItem === 'friends' } onClick={ this.handleItemClick } />
+          <Menu.Item name='主页' active={ activeItem === '主页' } onClick={ this.handleItemClick } />
+          <Menu.Item name='消息' active={ activeItem === '消息' } onClick={ this.handleItemClick } />
+          <Menu.Item name='朋友' active={ activeItem === '朋友' } onClick={ this.handleItemClick } />
         </Menu>
         <Segment>
           <img alt='media graph' src='http://semantic-ui.com/images/wireframe/media-paragraph.png' />
