@@ -18,3 +18,9 @@
 #firstrow {
     margin-top: 20%;
 }
+
+#loginHint {
+    color: white;
+    margin-top: 3px;
+    text-align: center;
+}
