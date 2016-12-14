@@ -1,15 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { Sidebar, Icon, Container, Checkbox, Image } from 'semantic-ui-react';
-import { browserHistory } from 'react-router'
+import { Sidebar, Container, Checkbox } from 'semantic-ui-react';
 
 import PostHeader from './Post.Header';
 import PostMenu from './Post.Menu';
 import PostContent from './Post.Content';
 
-import AV from 'leancloud-storage';
 import _ from 'lodash';
 
-import 'semantic-ui-css/semantic.min.css';
 import '../css/Post.css';
 
 class CheckItem extends Component {
@@ -17,10 +14,10 @@ class CheckItem extends Component {
         return (
             <div className="cha-item">
               <Checkbox label={ this.props.label } />
-            </div>);
+            </div>
+            );
     }
 }
-
 
 class Content extends Component {
     static defaultProps = {
@@ -39,72 +36,39 @@ class Content extends Component {
     render() {
         const {description, checklist} = this.props;
 
-        let cl = checklist.map((cha, index) => {
-            return <CheckItem key={ index } id={ index } label={ cha.header } />;
-        });
+        let cl;
+        if (checklist !== undefined) {
+            cl = checklist.map((cha, index) => {
+                return <CheckItem key={ index } id={ index } label={ cha.header } />;
+            });
+        }
 
-        return (<Container id='print'>
-                  <PostHeader {...this.props}/>
-                  <div className="post-intro">
-                    <p value={ description } />
-                  </div>
-                  <div className="checkbox-list">
-                    { cl }
-                  </div>
-                </Container>);
+        return (
+            <Container id='print'>
+              <PostHeader {...this.props}/>
+              <div className="post-intro">
+                <p value={ description } />
+              </div>
+              <div className="checkbox-list">
+                { cl }
+              </div>
+            </Container>
+            );
     }
 }
 
-class Post extends Component {
+class PostContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: "title",
-            author: "author",
-            date: "date",
-            description: 'description',
             visible: false,
-            checklist: [],
-            like: false,
-            comment: '0',
-            heart: '0',
             scrollY: '0'
         }
     }
 
-
-    fetchData() {
-        let _this = this;
-        var query = new AV.Query('Post');
-        query.select(['title', 'postId', 'author', 'updatedAt', 'description', 'checklist', 'comment', 'heart', 'like']);
-        query.equalTo('postId', this.props.params.postId);
-        query.find().then(function(results) {
-            if (results.length === 1) {
-                let post = results[0];
-                _this.setState({
-                    title: post.get('title'),
-                    author: post.get('author'),
-                    date: post.get('updatedAt').toLocaleDateString(),
-                    description: post.get('description'),
-                    checklist: post.get('checklist'),
-                    comment: post.get('comment'),
-                    heart: post.get('heart'),
-                    like: post.get('like')
-                });
-                document.title = _this.state.title + ' - Palm';
-            } else {
-                browserHistory.push('/404');
-            }
-        }, function(error) {
-            browserHistory.push('/404');
-        });
-    }
-
-
-
     handleScroll = event => {
         let y = window.scrollY;
-        if (y < this.state.scrollY) {
+        if (y < this.state.crollY) {
             // scroll up
             this.toggleVisibility(true);
         } else {
@@ -119,10 +83,9 @@ class Post extends Component {
 
     componentDidMount() {
         this.debounce = _.debounce(this.handleScroll, 100, {
-            'leading': true,
+            'leading': true
         });
         window.addEventListener('scroll', this.debounce);
-        this.fetchData();
     }
 
     componentWillUnmount() {
@@ -130,14 +93,13 @@ class Post extends Component {
     }
 
     render() {
-        const {visible, heart, comment} = this.state;
-
+        const {visible, heart, comment} = this.props;
         return (
             <div className="App">
               <div>
                 <PostMenu visible={ visible } heart={ heart } comment={ comment } />
                 <Sidebar.Pusher>
-                  <Content title={ this.state.title } author={ this.state.author } date={ this.state.date } like={ this.state.like } description={ this.state.description } checklist={ this.state.checklist }
+                  <Content title={ this.props.title } author={ this.props.author } date={ this.props.date } like={ this.props.like } description={ this.props.description } checklist={ this.props.checklist }
                   />
                 </Sidebar.Pusher>
               </div>
@@ -146,4 +108,4 @@ class Post extends Component {
     }
 }
 
-export default Post;
+export default PostContainer;

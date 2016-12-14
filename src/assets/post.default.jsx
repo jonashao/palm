@@ -3,6 +3,7 @@ const DEFAULT_POST = {
     "postId": "sweden-visa-student-travel",
     "title": "瑞典学生旅游签证所需文件",
     "author": "Jonas",
+    "date": "2016-12-10",
     "checklist": [{
         "header": "申根签证申请表"
     }, {

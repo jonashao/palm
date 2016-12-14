@@ -1,6 +1,4 @@
-import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router'
-
 
 import AV from 'leancloud-storage';
 import _ from 'lodash';
@@ -9,13 +7,23 @@ import { LOAD_POST_DETAIL } from '../constants/ActionTypes'
 
 import DEFAULT_POST from '../assets/post.default'
 
-const initialState = [
-    DEFAULT_POST
-]
+const initialState = {
+    post: DEFAULT_POST
+}
 
 const handleFetchPost = () => {
     var query = new AV.Query('Post');
-    query.select(['title', 'postId', 'author', 'updatedAt', 'description', 'checklist', 'comment', 'heart', 'like']);
+    query.select([
+        'title',
+        'postId',
+        'author',
+        'updatedAt',
+        'description',
+        'checklist',
+        'comment',
+        'heart',
+        'like'
+    ]);
     query.equalTo('postId', this.props.params.postId);
 
     query.find().then(function(results) {
@@ -26,7 +34,9 @@ const handleFetchPost = () => {
             return {
                 title: post.get('title'),
                 author: post.get('author'),
-                date: post.get('updatedAt').toLocaleDateString(),
+                date: post
+                    .get('updatedAt')
+                    .toLocaleDateString(),
                 description: post.get('description'),
                 checklist: post.get('checklist'),
                 comment: post.get('comment'),
@@ -41,13 +51,10 @@ const handleFetchPost = () => {
     });
 }
 
-
 export default function posts(state = initialState, action) {
     switch (action.type) {
         case LOAD_POST_DETAIL:
-            return
-
-
+            return state;
         default:
             return state
     }
