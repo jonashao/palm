@@ -2,10 +2,12 @@ import React from 'react';
 import { Sidebar, Menu, Icon, Image } from 'semantic-ui-react'
 
 
-import logo from '../assets/images/logo.png';
+import logo from '../../assets/images/logo.png';
 
 
-const PostMenu = ({visible, heart, comment}) => (
+
+
+const SideBarMenu = ({visible, heart, comment}) => (
   <Sidebar as={ Menu } animation='overlay' direction='bottom' visible={ visible } borderless size='huge'>
     <Menu.Item header name='home' link href='/square'>
       <Image ui size="mini" src={ logo } />
@@ -29,5 +31,6 @@ const PostMenu = ({visible, heart, comment}) => (
     </Menu.Menu>
   </Sidebar>);
 
-export default PostMenu;
+
+export default SideBarMenu;
 

@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component, PropTypes} from 'react';
+import {connect} from 'react-redux';
 
-import Post from '../components/Post';
-import FetchPostAction from '../actions/post';
+import Post from '../components/post/Post';
+import fetchPost from '../actions/post';
+
 
 class PostContainer extends Component {
-    static defaultProps = {}
 
-    static propsType = {}
+    static propsType = {
+        post: PropTypes.shape({
+            content: PropTypes.object.isRequired,
+            count: PropTypes.object.isRequired
+        }).isRequired
+    }
+
+    componentDidMount() {
+    }
 
     render() {
         return (
-            <div>
-              <Post {...this.props.post}/>
-            </div>
-            );
+            <div><Post {...this.props.post}/></div>
+        );
     }
 }
 
@@ -24,10 +30,5 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        FetchPostAction
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);
+export default connect(mapStateToProps, {fetchPost})(PostContainer);

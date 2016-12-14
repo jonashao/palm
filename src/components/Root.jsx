@@ -3,7 +3,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import Post from './Post';
+import Post from './post/Post';
 import Square from './Square';
 import SearchPage from './Search';
 import Profile from './Profile';
